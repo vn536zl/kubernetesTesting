@@ -1,0 +1,27 @@
+name: Kubernetes Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubunto-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag haywardj/kubernetes-testing
+
+  push:
+  
+    runs-on: ubunto-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Push Image to Docker Hub\
+        run: docker push haywardj/kubernetes-testing
